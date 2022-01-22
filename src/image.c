@@ -317,7 +317,7 @@ void draw_detections(image im, detection *dets, int num, float thresh, char **na
             rgb[1] = green;
             rgb[2] = blue;
             box b = dets[i].bbox;
-            //printf("%f %f %f %f\n", b.x, b.y, b.w, b.h);
+            printf("%f %f %f %f\n", b.x, b.y, b.w, b.h);
 
             // ----------------------------
             int left = (b.x - b.w / 2.) * im.w;
@@ -334,17 +334,17 @@ void draw_detections(image im, detection *dets, int num, float thresh, char **na
             if (bot > im.h - 1)
                 bot = im.h - 1;
 
-            printf("left");
-            printf(left);
+            // printf("left");
+            // printf(left);
 
-            printf("right");
-            printf(right);
+            // printf("right");
+            // printf(right);
 
-            printf("top");
-            printf(top);
+            // printf("top");
+            // printf(top);
 
-            printf("bot");
-            printf(bot);
+            // printf("bot");
+            // printf(bot);
 
             // ______________________
 

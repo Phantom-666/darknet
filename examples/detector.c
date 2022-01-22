@@ -700,8 +700,7 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
 
         //
 
-        printf("nboxes");
-        printf(nboxes);
+        printf("nboxes: %d", nboxes);
 
         // dets.
 
