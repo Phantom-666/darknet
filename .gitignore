@@ -7,7 +7,6 @@
 *.pyc
 old/
 mnist/
-data/
 caffe/
 grasp/
 images/
@@ -17,6 +16,8 @@ decaf/
 submission/
 darknet
 .fuse*
+
+/yolov3.weights
 
 # OS Generated #
 .DS_Store*
