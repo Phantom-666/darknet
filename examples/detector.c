@@ -704,8 +704,6 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
         printf(nboxes);
 
         // dets.
-        printf();
-        printf();
 
         draw_detections(im, dets, nboxes, thresh, names, alphabet, l.classes);
         //
