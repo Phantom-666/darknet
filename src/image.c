@@ -4,6 +4,14 @@
 #include "cuda.h"
 #include <stdio.h>
 #include <math.h>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <malloc.h>
+#include <sys/types.h>
+#include <assert.h>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
