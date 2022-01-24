@@ -453,9 +453,16 @@ void my_draw_detections(image im, detection *dets, int num, float thresh, char *
 
             char *mainProbsPath = "probs";
 
+            printf("probs\n");
+
             struct Probs probs;
 
+            printf("probs\n");
+
             probs.labelstr = labelstr;
+
+            printf("probs %s", probs.labelstr);
+
             probs.bot = bot;
             probs.left = left;
             probs.right = right;
