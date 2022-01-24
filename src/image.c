@@ -336,7 +336,7 @@ void checkDirDepends(char *path)
 
     if (stat(path, &st) == -1)
     {
-        mkdir(path);
+        mkdir(path, 0700);
     }
 }
 
