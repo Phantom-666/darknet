@@ -746,10 +746,6 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
             ///
             ///
 
-            char *filePath = "read.txt";
-
-            char *options = waitForOptions(filePath);
-
             // printf("Enter Image Path: ");
             // fflush(stdout);
             // input = fgets(input, 256, stdin);
@@ -757,6 +753,11 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
             // return;
             // strtok(input, "\n");
         }
+
+        char *filePath = "read.txt";
+
+        char *options = waitForOptions(filePath);
+
         image im = load_image_color(input, 0, 0);
         image sized = letterbox_image(im, net->w, net->h);
         //image sized = resize_image(im, net->w, net->h);
