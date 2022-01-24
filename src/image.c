@@ -366,7 +366,7 @@ void writeProbs(char *mainPath, char *imageOptions, struct Probs *probs)
 
         int dest_size = (strlen(*(splited + 1)) + 1 + strlen(imagePath) + 1);
 
-        printf("fileName %d", fileName);
+        printf("dest_size %d", dest_size);
         char destFileName[dest_size];
 
         snprintf(destFileName, dest_size, "%s/%s", mainPath, fileName);
