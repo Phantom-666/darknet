@@ -342,10 +342,11 @@ void checkDirDepends(char *path)
 
 void writeProbs(char *mainPath, char *imageOptions, struct Probs *probs)
 {
-
     checkDirDepends(mainPath);
 
     char **splited = str_split(imageOptions, ' ');
+
+    printf("after splited");
 
     char *imagePath;
 
@@ -357,9 +358,15 @@ void writeProbs(char *mainPath, char *imageOptions, struct Probs *probs)
     {
 
         imagePath = *(splited + 0);
+
+        printf("imagePath %s", imagePath);
+
         fileName = *(splited + 1);
+        printf("fileName %s", fileName);
 
         int dest_size = (strlen(*(splited + 1)) + 1 + strlen(imagePath) + 1);
+
+        printf("fileName %d", fileName);
         char destFileName[dest_size];
 
         snprintf(destFileName, dest_size, "%s/%s", mainPath, fileName);
@@ -448,11 +455,13 @@ void my_draw_detections(image im, detection *dets, int num, float thresh, char *
 
             struct Probs probs;
 
-            probs.labelstr = "label";
+            probs.labelstr = labelstr;
             probs.bot = bot;
             probs.left = left;
             probs.right = right;
             probs.top = top;
+
+            printf("before writing");
 
             writeProbs(mainProbsPath, options, &probs);
 
