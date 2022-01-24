@@ -268,7 +268,107 @@ image **load_alphabet()
     return alphabets;
 }
 
-void draw_detections(image im, detection *dets, int num, float thresh, char **names, image **alphabet, int classes)
+struct Probs
+{
+    char *labelstr;
+    int left;
+    int right;
+    int top;
+    int bot;
+};
+
+char **str_split(char *a_str, const char a_delim)
+{
+    char **result = 0;
+    size_t count = 0;
+    char *tmp = a_str;
+    char *last_comma = 0;
+    char delim[2];
+    delim[0] = a_delim;
+    delim[1] = 0;
+
+    /* Count how many elements will be extracted. */
+    while (*tmp)
+    {
+        if (a_delim == *tmp)
+        {
+            count++;
+            last_comma = tmp;
+        }
+        tmp++;
+    }
+
+    count += last_comma < (a_str + strlen(a_str) - 1);
+
+    count++;
+
+    result = malloc(sizeof(char *) * count);
+
+    if (result)
+    {
+        size_t idx = 0;
+        char *token = strtok(a_str, delim);
+
+        while (token)
+        {
+            assert(idx < count);
+            *(result + idx++) = strdup(token);
+            token = strtok(0, delim);
+        }
+        assert(idx == count - 1);
+        *(result + idx) = 0;
+    }
+
+    return result;
+}
+
+void checkDirDepends(char *path)
+{
+    struct stat st = {0};
+
+    if (stat(path, &st) == -1)
+    {
+        mkdir(path);
+    }
+}
+
+void writeProbs(char *mainPath, char *imageOptions, struct Probs *probs)
+{
+
+    checkDirDepends(mainPath);
+
+    char **splited = str_split(imageOptions, ' ');
+
+    char *imagePath;
+
+    char *fileName;
+
+    // labelstr, left, right, top, bot
+
+    if (splited)
+    {
+
+        imagePath = *(splited + 0);
+        fileName = *(splited + 1);
+
+        int dest_size = (strlen(*(splited + 1)) + 1 + strlen(imagePath) + 1);
+        char destFileName[dest_size];
+
+        snprintf(destFileName, dest_size, "%s/%s", mainPath, fileName);
+
+        printf("destFileName %s\n", destFileName);
+
+        // write to file
+
+        FILE *fptr = fopen(destFileName, "w");
+
+        fprintf(fptr, "%s %d %d %d %d", probs->labelstr, probs->left, probs->right, probs->top, probs->bot);
+
+        fclose(fptr);
+    }
+}
+
+void draw_detections(image im, detection *dets, int num, float thresh, char **names, image **alphabet, int classes, char *options)
 {
     int i, j;
 
@@ -317,7 +417,7 @@ void draw_detections(image im, detection *dets, int num, float thresh, char **na
             rgb[1] = green;
             rgb[2] = blue;
             box b = dets[i].bbox;
-            printf("%f %f %f %f\n", b.x, b.y, b.w, b.h);
+            // printf("%f %f %f %f\n", b.x, b.y, b.w, b.h);
 
             // ----------------------------
             int left = (b.x - b.w / 2.) * im.w;
@@ -334,19 +434,18 @@ void draw_detections(image im, detection *dets, int num, float thresh, char **na
             if (bot > im.h - 1)
                 bot = im.h - 1;
 
-            // printf("left");
-            // printf(left);
+            char *mainProbsPath = "probs";
 
-            // printf("right");
-            // printf(right);
+            struct Probs probs;
 
-            // printf("top");
-            // printf(top);
+            probs.labelstr = "label";
+            probs.bot = bot;
+            probs.left = left;
+            probs.right = right;
+            probs.top = top;
 
-            // printf("bot");
-            // printf(bot);
-
-            // ______________________
+            printf("%s %d %d %d %d\n", labelstr, left, right, top, bot);
+            writeProbs(mainProbsPath, options, &probs);
 
             draw_box_width(im, left, top, right, bot, width, red, green, blue);
             if (alphabet)

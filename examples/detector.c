@@ -1,4 +1,12 @@
 #include "darknet.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <malloc.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <assert.h>
 
 static int coco_ids[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 67, 70, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 84, 85, 86, 87, 88, 89, 90};
 
@@ -645,6 +653,72 @@ void validate_detector_recall(char *cfgfile, char *weightfile)
         free_image(sized);
     }
 }
+// -------------------------------------------
+// my
+
+char *waitForOptions(char *filePath)
+{
+    const unsigned MAX_LENGTH = 256;
+    char buffer[MAX_LENGTH];
+
+    int detourSecondsTime = 1;
+    char *path;
+
+    while (1)
+    {
+
+        FILE *fp = fopen(filePath, "r");
+
+        int exists = 0;
+
+        if (fgets(buffer, MAX_LENGTH, fp))
+        {
+            int n = strlen(buffer);
+
+            if (buffer[n - 1] == '\n')
+            {
+                buffer[n - 1] = 0;
+            }
+
+            if (buffer[n - 1] != 0)
+            {
+                n += 1;
+            }
+
+            path = malloc(n * sizeof(char *));
+
+            if (buffer[n - 1] != 0)
+            {
+                buffer[n - 1] = '\0';
+            }
+
+            for (int i = 0; i < n; ++i)
+            {
+                path[i] = buffer[i];
+            }
+
+            exists = 1;
+        }
+
+        fclose(fp);
+
+        if (exists)
+        {
+            return strdup(path);
+        }
+        sleep(detourSecondsTime);
+    }
+}
+
+void clearFile(char *path)
+{
+    FILE *f = fopen(path, "w");
+
+    fprintf(f, "");
+
+    fclose(f);
+}
+//
 
 void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filename, float thresh, float hier_thresh, char *outfile, int fullscreen)
 {
@@ -672,12 +746,16 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
             ///
             ///
 
-            printf("Enter Image Path: ");
-            fflush(stdout);
-            input = fgets(input, 256, stdin);
-            if (!input)
-                return;
-            strtok(input, "\n");
+            char *filePath = "read.txt";
+
+            char *options = waitForOptions(filePath);
+
+            // printf("Enter Image Path: ");
+            // fflush(stdout);
+            // input = fgets(input, 256, stdin);
+            // if (!input)
+            // return;
+            // strtok(input, "\n");
         }
         image im = load_image_color(input, 0, 0);
         image sized = letterbox_image(im, net->w, net->h);
@@ -704,7 +782,12 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
 
         // dets.
 
-        draw_detections(im, dets, nboxes, thresh, names, alphabet, l.classes);
+        printf("options %s\n", options);
+
+        draw_detections(im, dets, nboxes, thresh, names, alphabet, l.classes, options);
+
+        clearFile(filePath);
+
         //
 
         free_detections(dets, nboxes);
