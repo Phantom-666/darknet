@@ -474,9 +474,11 @@ void my_draw_detections(image im, detection *dets, int num, float thresh, char *
 
             printf("probs %s", probs.labelstr);
 
+            printf("official\n");
+
             probs.bot = bot;
 
-            printf("bot %d", bot);
+            printf("bot %d\n", bot);
 
             probs.left = left;
             probs.right = right;
