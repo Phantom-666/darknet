@@ -472,7 +472,7 @@ void my_draw_detections(image im, detection *dets, int num, float thresh, char *
 
             probs.labelstr[labelstr_len] = '\n';
 
-            printf("probs %s", probs.labelstr);
+            printf("probs %s\n", probs.labelstr);
 
             printf("official\n");
 
