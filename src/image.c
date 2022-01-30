@@ -345,7 +345,7 @@ void writeProbs(char *mainPath, char *imageOptions, struct Probs *probs)
     printf("before checkDirDepends\n");
     checkDirDepends(mainPath);
 
-    printf("before split\n");
+    printf("before split %s\n", imageOptions);
 
     char **splited = str_split(imageOptions, ',');
 
@@ -375,6 +375,9 @@ void writeProbs(char *mainPath, char *imageOptions, struct Probs *probs)
         snprintf(destFileName, dest_size, "%s/%s", mainPath, fileName);
 
         printf("destFileName %s\n", destFileName);
+
+        free(imagePath);
+        free(fileName);
 
         // write to file
 
