@@ -481,10 +481,18 @@ void my_draw_detections(image im, detection *dets, int num, float thresh, char *
             printf("bot %d\n", bot);
 
             probs.left = left;
+
+            printf("left %d\n", left);
+
             probs.right = right;
+
+            printf("right %d\n", right);
+
             probs.top = top;
 
-            printf("before writing");
+            printf("top %d\n", top);
+
+            printf("before writing\n");
 
             writeProbs(mainProbsPath, options, &probs);
 
