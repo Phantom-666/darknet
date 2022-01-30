@@ -393,18 +393,6 @@ void my_draw_detections(image im, detection *dets, int num, float thresh, char *
 
 {
 
-    int options_len = strlen(copy_options);
-
-    char *options = malloc((options_len + 1) * sizeof(char));
-
-    for (int i = 0; i < options_len; ++i)
-    {
-
-        options[i] = copy_options[i];
-    }
-
-    options[options_len] = '\0';
-
     int i, j;
 
     for (i = 0; i < num; ++i)
@@ -430,6 +418,19 @@ void my_draw_detections(image im, detection *dets, int num, float thresh, char *
         }
         if (class >= 0)
         {
+
+            int options_len = strlen(copy_options);
+
+            char *options = malloc((options_len + 1) * sizeof(char));
+
+            for (int i = 0; i < options_len; ++i)
+            {
+
+                options[i] = copy_options[i];
+            }
+
+            options[options_len] = '\0';
+
             int width = im.h * .006;
 
             /*
