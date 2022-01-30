@@ -480,6 +480,8 @@ void my_draw_detections(image im, detection *dets, int num, float thresh, char *
 
             printf("bot %d\n", bot);
 
+            printf("probs.bot %d\n", probs.bot);
+
             probs.left = left;
 
             printf("left %d\n", left);
