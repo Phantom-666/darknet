@@ -453,13 +453,24 @@ void my_draw_detections(image im, detection *dets, int num, float thresh, char *
 
             char *mainProbsPath = "probs";
 
-            printf("probs\n");
+            printf("one\n");
 
             struct Probs probs;
 
-            printf("probs\n");
+            printf("two\n");
+            // labelstr
 
-            probs.labelstr = labelstr;
+            int labelstr_len = strlen(labelstr);
+
+            //---------------> HERE is PROBLEM
+            probs.labelstr = malloc((labelstr_len + 1) * sizeof(char *));
+
+            for (int i = 0; i < labelstr_len; ++i)
+            {
+                probs.labelstr[i] = labelstr[i];
+            }
+
+            probs.labelstr[labelstr_len] = '\n';
 
             printf("probs %s", probs.labelstr);
 
