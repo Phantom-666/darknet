@@ -463,7 +463,7 @@ void my_draw_detections(image im, detection *dets, int num, float thresh, char *
             int labelstr_len = strlen(labelstr);
 
             //---------------> HERE is PROBLEM
-            probs.labelstr = malloc((labelstr_len + 1) * sizeof(char *));
+            probs.labelstr = malloc((labelstr_len + 1) * sizeof(char));
 
             for (int i = 0; i < labelstr_len; ++i)
             {
