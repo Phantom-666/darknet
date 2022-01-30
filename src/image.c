@@ -360,6 +360,8 @@ void writeProbs(char *mainPath, char *imageOptions, struct Probs *probs)
     if (splited)
     {
 
+        printf("split is ok");
+
         imagePath = *(splited + 0);
 
         printf("imagePath %s", imagePath);
