@@ -347,7 +347,7 @@ void writeProbs(char *mainPath, char *imageOptions, struct Probs *probs)
 
     printf("before split\n");
 
-    char **splited = str_split(imageOptions, ' ');
+    char **splited = str_split(imageOptions, ',');
 
     printf("after splited\n");
 
