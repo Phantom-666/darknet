@@ -389,8 +389,22 @@ void writeProbs(char *mainPath, char *imageOptions, struct Probs *probs)
     }
 }
 
-void my_draw_detections(image im, detection *dets, int num, float thresh, char **names, image **alphabet, int classes, char *options)
+void my_draw_detections(image im, detection *dets, int num, float thresh, char **names, image **alphabet, int classes, char *copy_options)
+
 {
+
+    int options_len = strlen(copy_options);
+
+    char *options = malloc((options_len + 1) * sizeof(char));
+
+    for (int i = 0; i < options_len; ++i)
+    {
+
+        options[i] = copy_options[i];
+    }
+
+    options[options_len] = '\0';
+
     int i, j;
 
     for (i = 0; i < num; ++i)
