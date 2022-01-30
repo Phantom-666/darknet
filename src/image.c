@@ -342,18 +342,11 @@ void checkDirDepends(char *path)
 
 void writeProbs(char *mainPath, char *imageOptions, struct Probs *probs)
 {
-    printf("before checkDirDepends\n");
     checkDirDepends(mainPath);
-
-    printf("before split %s\n", imageOptions);
 
     char **splited = str_split(imageOptions, ',');
 
-    printf("after splited\n");
-
     // labelstr, left, right, top, bot
-
-    printf("before if\n");
 
     if (splited)
     {
@@ -381,9 +374,9 @@ void writeProbs(char *mainPath, char *imageOptions, struct Probs *probs)
 
         // write to file
 
-        FILE *fptr = fopen(destFileName, "w");
+        FILE *fptr = fopen(destFileName, "a");
 
-        fprintf(fptr, "%s %d %d %d %d", probs->labelstr, probs->left, probs->right, probs->top, probs->bot);
+        fprintf(fptr, "%s %d %d %d %d\n", probs->labelstr, probs->left, probs->right, probs->top, probs->bot);
 
         fclose(fptr);
     }
@@ -474,16 +467,12 @@ void my_draw_detections(image im, detection *dets, int num, float thresh, char *
 
             char *mainProbsPath = "probs";
 
-            printf("one\n");
-
             struct Probs probs;
 
-            printf("two\n");
             // labelstr
 
             int labelstr_len = strlen(labelstr);
 
-            //---------------> HERE is PROBLEM
             probs.labelstr = malloc((labelstr_len + 1) * sizeof(char));
 
             for (int i = 0; i < labelstr_len; ++i)
