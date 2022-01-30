@@ -756,11 +756,11 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
 
         char *filePath = "read.txt";
 
-        printf("filePath %s", filePath);
+        printf("filePath %s\n", filePath);
 
         char *options = waitForOptions(filePath);
 
-        printf("options %s", options);
+        printf("options %s\n", options);
 
         image im = load_image_color(input, 0, 0);
         image sized = letterbox_image(im, net->w, net->h);
