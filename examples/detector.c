@@ -789,6 +789,8 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
 
         char *mainProbsPath = "probs";
 
+        checkDirDepends(mainProbsPath);
+
         snprintf(destFileName, dest_size, "%s/%s", mainProbsPath, outFileName);
 
         printf("destFileName %s\n", destFileName);

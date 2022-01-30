@@ -342,7 +342,6 @@ void checkDirDepends(char *path)
 
 void writeProbs(char *destFileName, struct Probs *probs)
 {
-    checkDirDepends(mainPath);
 
     // labelstr, left, right, top, bot
     // write to file
