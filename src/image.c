@@ -342,13 +342,14 @@ void checkDirDepends(char *path)
 
 void writeProbs(char *mainPath, char *imageOptions, struct Probs *probs)
 {
+    printf("before checkDirDepends\n");
     checkDirDepends(mainPath);
 
-    printf("before split");
+    printf("before split\n");
 
     char **splited = str_split(imageOptions, ' ');
 
-    printf("after splited");
+    printf("after splited\n");
 
     char *imagePath;
 
