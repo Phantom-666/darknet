@@ -351,28 +351,25 @@ void writeProbs(char *mainPath, char *imageOptions, struct Probs *probs)
 
     printf("after splited\n");
 
-    char *imagePath;
-    char *fileName;
-
     // labelstr, left, right, top, bot
 
-    printf("before if");
+    printf("before if\n");
 
     if (splited)
     {
 
-        printf("split is ok");
+        printf("split is ok\n");
 
-        imagePath = *(splited + 0);
+        char *imagePath = *(splited + 0);
 
-        printf("imagePath %s", imagePath);
+        printf("imagePath %s\n", imagePath);
 
-        fileName = *(splited + 1);
-        printf("fileName %s", fileName);
+        char *fileName = *(splited + 1);
+        printf("fileName %s\n", fileName);
 
         int dest_size = (strlen(*(splited + 1)) + 1 + strlen(imagePath) + 1);
 
-        printf("dest_size %d", dest_size);
+        printf("dest_size %d\n", dest_size);
         char destFileName[dest_size];
 
         snprintf(destFileName, dest_size, "%s/%s", mainPath, fileName);
