@@ -737,7 +737,6 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
     while (1)
     {
 
-        printf("filename %s\n", filename);
         if (filename)
         {
             // strncpy(input, filename, 256);
@@ -762,18 +761,18 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
 
         printf("options %s\n", options);
 
-        int options_len = strlen(options);
+        // int options_len = strlen(options);
 
-        char *imageOptions = malloc((options_len + 1) * sizeof(char));
+        // char *imageOptions = malloc((options_len + 1) * sizeof(char));
 
-        for (int i = 0; i < options_len; ++i)
-        {
-            imageOptions[i] = options[i];
-        }
+        // for (int i = 0; i < options_len; ++i)
+        // {
+        //     imageOptions[i] = options[i];
+        // }
 
-        imageOptions[options_len] = '\0';
+        // imageOptions[options_len] = '\0';
 
-        char **splited = str_split(imageOptions, ',');
+        char **splited = str_split(options, ',');
 
         char *imagePath = *(splited + 0);
 
