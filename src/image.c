@@ -352,10 +352,11 @@ void writeProbs(char *mainPath, char *imageOptions, struct Probs *probs)
     printf("after splited\n");
 
     char *imagePath;
-
     char *fileName;
 
     // labelstr, left, right, top, bot
+
+    printf("before if");
 
     if (splited)
     {
