@@ -472,31 +472,19 @@ void my_draw_detections(image im, detection *dets, int num, float thresh, char *
 
             probs.labelstr[labelstr_len] = '\0';
 
-            printf("probs %s\n", probs.labelstr);
-
-            printf("official\n");
-
             probs.bot = bot;
-
-            printf("bot %d\n", bot);
-
-            printf("probs.bot %d\n", probs.bot);
 
             probs.left = left;
 
-            printf("left %d\n", left);
-
             probs.right = right;
 
-            printf("right %d\n", right);
-
             probs.top = top;
-
-            printf("top %d\n", top);
 
             printf("before writing\n");
 
             writeProbs(mainProbsPath, options, &probs);
+
+            printf("after writing\n");
 
             draw_box_width(im, left, top, right, bot, width, red, green, blue);
             if (alphabet)
