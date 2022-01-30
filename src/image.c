@@ -344,6 +344,8 @@ void writeProbs(char *mainPath, char *imageOptions, struct Probs *probs)
 {
     checkDirDepends(mainPath);
 
+    printf("before split");
+
     char **splited = str_split(imageOptions, ' ');
 
     printf("after splited");
