@@ -658,11 +658,14 @@ void validate_detector_recall(char *cfgfile, char *weightfile)
 
 char *waitForOptions(char *filePath)
 {
+
     const unsigned MAX_LENGTH = 256;
     char buffer[MAX_LENGTH];
 
     int detourSecondsTime = 1;
     char *path;
+
+    printf("Waiting...\n");
 
     while (1)
     {
