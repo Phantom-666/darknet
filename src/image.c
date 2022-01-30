@@ -340,50 +340,21 @@ void checkDirDepends(char *path)
     }
 }
 
-void writeProbs(char *mainPath, char *imageOptions, struct Probs *probs)
+void writeProbs(char *destFileName, struct Probs *probs)
 {
     checkDirDepends(mainPath);
 
-    char **splited = str_split(imageOptions, ',');
-
     // labelstr, left, right, top, bot
+    // write to file
 
-    if (splited)
-    {
+    FILE *fptr = fopen(destFileName, "a");
 
-        printf("split is ok\n");
+    fprintf(fptr, "%s %d %d %d %d\n", probs->labelstr, probs->left, probs->right, probs->top, probs->bot);
 
-        char *imagePath = *(splited + 0);
-
-        printf("imagePath %s\n", imagePath);
-
-        char *fileName = *(splited + 1);
-        printf("fileName %s\n", fileName);
-
-        int dest_size = (strlen(*(splited + 1)) + 1 + strlen(imagePath) + 1);
-
-        printf("dest_size %d\n", dest_size);
-        char destFileName[dest_size];
-
-        snprintf(destFileName, dest_size, "%s/%s", mainPath, fileName);
-
-        printf("destFileName %s\n", destFileName);
-
-        free(imagePath);
-        free(fileName);
-
-        // write to file
-
-        FILE *fptr = fopen(destFileName, "a");
-
-        fprintf(fptr, "%s %d %d %d %d\n", probs->labelstr, probs->left, probs->right, probs->top, probs->bot);
-
-        fclose(fptr);
-    }
+    fclose(fptr);
 }
 
-void my_draw_detections(image im, detection *dets, int num, float thresh, char **names, image **alphabet, int classes, char *copy_options)
-
+void my_draw_detections(image im, detection *dets, int num, float thresh, char **names, image **alphabet, int classes, char *destFileName)
 {
 
     int i, j;
@@ -411,18 +382,6 @@ void my_draw_detections(image im, detection *dets, int num, float thresh, char *
         }
         if (class >= 0)
         {
-
-            int options_len = strlen(copy_options);
-
-            char *options = malloc((options_len + 1) * sizeof(char));
-
-            for (int i = 0; i < options_len; ++i)
-            {
-
-                options[i] = copy_options[i];
-            }
-
-            options[options_len] = '\0';
 
             int width = im.h * .006;
 
@@ -465,8 +424,6 @@ void my_draw_detections(image im, detection *dets, int num, float thresh, char *
 
             printf("%s %d %d %d %d\n", labelstr, left, right, top, bot);
 
-            char *mainProbsPath = "probs";
-
             struct Probs probs;
 
             // labelstr
@@ -492,7 +449,7 @@ void my_draw_detections(image im, detection *dets, int num, float thresh, char *
 
             printf("before writing\n");
 
-            writeProbs(mainProbsPath, options, &probs);
+            writeProbs(destFileName, &probs);
 
             printf("after writing\n");
 
