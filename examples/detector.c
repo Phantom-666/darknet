@@ -804,31 +804,14 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
 
         char *options = waitForOptions(filePath);
 
-        printf("options %s\n", options);
-
-        // int options_len = strlen(options);
-
-        // char *imageOptions = malloc((options_len + 1) * sizeof(char));
-
-        // for (int i = 0; i < options_len; ++i)
-        // {
-        //     imageOptions[i] = options[i];
-        // }
-
-        // imageOptions[options_len] = '\0';
-
         char **splited = str_split(options, ',');
 
         char *imagePath = *(splited + 0);
 
-        printf("imagePath %s\n", imagePath);
-
         char *outFileName = *(splited + 1);
-        printf("outFileName %s\n", outFileName);
 
         int dest_size = (strlen(outFileName) + 1 + strlen(imagePath) + 1);
 
-        printf("dest_size %d\n", dest_size);
         char destFileName[dest_size];
 
         char *mainProbsPath = "probs";
@@ -837,9 +820,10 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
 
         snprintf(destFileName, dest_size, "%s/%s", mainProbsPath, outFileName);
 
-        printf("destFileName %s\n", destFileName);
-
         strncpy(input, imagePath, 256);
+
+        free(imagePath);
+        free(outFileName);
 
         image im = load_image_color(input, 0, 0);
         image sized = letterbox_image(im, net->w, net->h);

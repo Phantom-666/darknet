@@ -376,7 +376,7 @@ void my_draw_detections(image im, detection *dets, int num, float thresh, char *
             if (bot > im.h - 1)
                 bot = im.h - 1;
 
-            printf("%s %d %d %d %d\n", labelstr, left, right, top, bot);
+            // printf("%s %d %d %d %d\n", labelstr, left, right, top, bot);
 
             struct Probs probs;
 
@@ -401,11 +401,7 @@ void my_draw_detections(image im, detection *dets, int num, float thresh, char *
 
             probs.top = top;
 
-            printf("before writing\n");
-
             writeProbs(destFileName, &probs);
-
-            printf("after writing\n");
 
             draw_box_width(im, left, top, right, bot, width, red, green, blue);
             if (alphabet)
